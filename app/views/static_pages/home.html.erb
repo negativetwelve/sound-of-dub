@@ -6,89 +6,96 @@
 <script>
 $(document).ready(function(){
   var songs = <%= @songs.to_json.html_safe %>;
-  
-  console.log(songs);
-  
-	new jPlayerPlaylist({
+    
+	playlist = new jPlayerPlaylist({
 		jPlayer: "#jquery_jplayer_1",
 		cssSelectorAncestor: "#jp_container_1"
-	}, <%= @songs.to_json.html_safe %>,
+	}, songs,
   {
+    playlistOptions: {
+        autoPlay: true,
+        enableRemoveControls: true
+    },
+    play: function() { // The $.jPlayer.event.ended event
+      updateAll(playlist.playlist[playlist.current]); // Repeat the media
+    },
 		swfPath: "/swf",
 		supplied: "mp3",
 		wmode: "window"
 	});
   
 	$("#jplayer_inspector_1").jPlayerInspector({jPlayer:$("#jquery_jplayer_1")});
+  
+  var updateAll = function(song) {
+    var currentTitle = song.title || 'Untitled';
+    //var songartist = song.artist || 'Anonymous';
+    $('#current-title').html(currentTitle);
+    //$('#song-artist').html(songartist);
+    $('#reporttitle').val(currentTitle);
+    //$('#reportartist').val(songartist);
+    $('#reportsong').stop().fadeOut('fast');
+    //$('title').html(songtitle + ' - ' + songartist);
+  }
 });
 </script>
 
-<% if signed_in? %>    
-    
-  <div class="player">
-    <div id="jquery_jplayer_1" class="jp-jplayer"></div>
-    		<div id="jp_container_1" class="jp-audio">
-    			<div class="jp-type-playlist">
-    				<div class="jp-gui jp-interface">
-    					<ul class="jp-controls">
-    						<li><a href="javascript:;" class="jp-previous" tabindex="1">previous</a></li>
-    						<li><a href="javascript:;" class="jp-play" tabindex="1">play</a></li>
-    						<li><a href="javascript:;" class="jp-pause" tabindex="1">pause</a></li>
-    						<li><a href="javascript:;" class="jp-next" tabindex="1">next</a></li>
-    						<li><a href="javascript:;" class="jp-stop" tabindex="1">stop</a></li>
-    						<li><a href="javascript:;" class="jp-mute" tabindex="1" title="mute">mute</a></li>
-    						<li><a href="javascript:;" class="jp-unmute" tabindex="1" title="unmute">unmute</a></li>
-    						<li><a href="javascript:;" class="jp-volume-max" tabindex="1" title="max volume">max volume</a></li>
-    					</ul>
-    					<div class="jp-progress">
-    						<div class="jp-seek-bar">
-    							<div class="jp-play-bar"></div>
-    						</div>
-    					</div>
-    					<div class="jp-volume-bar">
-    						<div class="jp-volume-bar-value"></div>
-    					</div>
-    					<div class="jp-current-time"></div>
-    					<div class="jp-duration"></div>
-    					<ul class="jp-toggles">
-    					</ul>
-    				</div>
-    				<div class="jp-playlist">
-    					<ul>
+<div class="player">
+  <div id="jquery_jplayer_1" class="jp-jplayer"></div>
+		<div id="jp_container_1" class="jp-audio">
+			<div class="jp-type-playlist">
+        <div class="jp-gui jp-interface2">
+          <div class="text-interface2">
+            <div id="current-title"></div>
+            <div id="current-artist"></div>
+          </div>
+        </div>
+				<div class="jp-gui jp-interface">
+					<ul class="jp-controls">
+						<li><a href="javascript:;" class="jp-previous" tabindex="1">previous</a></li>
+						<li><a href="javascript:;" class="jp-play" tabindex="1">play</a></li>
+						<li><a href="javascript:;" class="jp-pause" tabindex="1">pause</a></li>
+						<li><a href="javascript:;" class="jp-next" tabindex="1">next</a></li>
+						<li><a href="javascript:;" class="jp-stop" tabindex="1">stop</a></li>
+						<li><a href="javascript:;" class="jp-mute" tabindex="1" title="mute">mute</a></li>
+						<li><a href="javascript:;" class="jp-unmute" tabindex="1" title="unmute">unmute</a></li>
+						<li><a href="javascript:;" class="jp-volume-max" tabindex="1" title="max volume">max volume</a></li>
+					</ul>
+					<div class="jp-progress">
+						<div class="jp-seek-bar">
+							<div class="jp-play-bar"></div>
+						</div>
+					</div>
+					<div class="jp-volume-bar">
+						<div class="jp-volume-bar-value"></div>
+					</div>
+					<div class="jp-current-time"></div>
+					<div class="jp-duration"></div>
+					<ul class="jp-toggles">
+					</ul>
+				</div>
+				<div class="jp-playlist">
+					<ul>
                 
-    						<li></li>
+						<li></li>
                 
-    					</ul>
-    				</div>
-    				<div class="jp-no-solution">
-    					<span>Update Required</span>
-    					To play the media you will need to either update your browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>.
-    				</div>
-    			</div>
-    		</div>  
-    </div>
+					</ul>
+				</div>
+				<div class="jp-no-solution">
+					<span>Update Required</span>
+					To play the media you will need to either update your browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>.
+				</div>
+			</div>
+		</div>  
   </div>
-  
-  <div class="sidebar">
+</div>
+
+<div class="sidebar">
+  <% if signed_in? %>
+    <%= link_to "Sign in", signin_path %><br>
+    <%= link_to "Sign up", signup_path %><br>  
+  <% else %>
     <%= link_to "Sign out", signout_path, method: "delete" %><br>
-    
-    <% Song.all.each do |song| %>
-    <%= song.title %><br>
-    <% end %>
-  </div>
-  
-  <div class="clear"></div>
-<% else %>
-  <div class="center hero-unit">
-    <h1>Sound of Dub</h1>
+  <% end %>
+</div>
 
-    <h2>
-      Wub Wub Wub
-    </h2>
-
-    <%= link_to "Sign up!", signup_path, class: "btn btn-large btn-primary" %>
-    <%= link_to "Sign in!", signin_path, class: "btn btn-large btn-primary" %>
-    
-  </div>
-
-<% end %>
+<div class="clear"></div>
