@@ -5,9 +5,15 @@ div.main {
 }
 
 div.clear {
-  float: left;
+  clear: both;
 }
 
 div.player {
-  width: 50%;
+  float: left;
+  width: 60%;
+}
+
+div.sidebar {
+  float: left;
+  width: 40%;
 }
