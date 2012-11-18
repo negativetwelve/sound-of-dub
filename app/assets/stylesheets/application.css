@@ -11,3 +11,76 @@
  *= require_self
  *= require_tree .
 */
+
+.signout {
+  float: right;
+}
+
+.signup {
+  float: right;
+}
+
+#user-playlists {
+  
+}
+
+#user-playlists li#current-playlist {
+  
+}
+
+div.more-playlist ul {
+	list-style-type:none;
+}
+
+div.given-playlists ul {
+  list-style-type: none;
+  
+}
+
+ul.song-list {
+  clear:both;
+  height: auto;
+}
+
+#given {
+  height: 30px;
+  margin-top: 10px;
+  background-color: rgb(100, 207, 80);
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+  margin-left: -25px;
+  text-align: center;
+  padding-top: 10px;
+}
+
+#current-playlist {
+  height: 30px;
+  margin-top: 10px;
+  background-color: yellow;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+  margin-left: -25px;
+  text-align: center;
+  padding-top: 10px;
+}
+
+#regular-playlist {
+  height: 30px;
+  margin-top: 10px;
+  background-color: rgb(100, 207, 80);
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+  margin-left: -25px;
+  text-align: center;
+  padding-top: 10px;
+}
+
+#new-playlist {
+  height: 30px;
+  margin-top: 20px;
+  background-color: rgb(100, 207, 80);
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+  text-align: center;
+  padding-top: 10px;
+}

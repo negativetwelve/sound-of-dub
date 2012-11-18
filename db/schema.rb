@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121117195656) do
+ActiveRecord::Schema.define(:version => 20121118110518) do
 
   create_table "microposts", :force => true do |t|
     t.string   "content"
@@ -21,6 +21,23 @@ ActiveRecord::Schema.define(:version => 20121117195656) do
   end
 
   add_index "microposts", ["user_id", "created_at"], :name => "index_microposts_on_user_id_and_created_at"
+
+  create_table "playlists", :force => true do |t|
+    t.string   "title"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "user_id"
+    t.boolean  "can_delete"
+    t.boolean  "can_add"
+  end
+
+  create_table "playlists_songs", :id => false, :force => true do |t|
+    t.integer "song_id"
+    t.integer "playlist_id"
+  end
+
+  add_index "playlists_songs", ["playlist_id", "song_id"], :name => "index_playlists_songs_on_playlist_id_and_song_id"
+  add_index "playlists_songs", ["song_id", "playlist_id"], :name => "index_playlists_songs_on_song_id_and_playlist_id"
 
   create_table "relationships", :force => true do |t|
     t.integer  "follower_id"
@@ -63,11 +80,12 @@ ActiveRecord::Schema.define(:version => 20121117195656) do
   create_table "users", :force => true do |t|
     t.string   "name"
     t.string   "email"
-    t.datetime "created_at",                         :null => false
-    t.datetime "updated_at",                         :null => false
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
     t.string   "password_digest"
     t.string   "remember_token"
-    t.boolean  "admin",           :default => false
+    t.boolean  "admin",               :default => false
+    t.integer  "current_playlist_id", :default => 0
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

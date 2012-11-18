@@ -19,9 +19,15 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(params[:user])
+    radio = Playlist.create(title: "Radio", can_delete: false, can_add: false)
+    (0..20).each do |num|
+      radio.songs << Song.find(Song.all[rand*Song.count.round])
+    end
+    @user.playlists << radio
+    @user.playlists << Playlist.create(title: "Favorites", can_delete: false, can_add: true)
+    @user.playlists << Playlist.create(title: "New", can_delete: false, can_add: false)
     if @user.save
       sign_in @user
-      flash[:success] = "Welcome!"
       redirect_to root_url
     else
       render 'new'

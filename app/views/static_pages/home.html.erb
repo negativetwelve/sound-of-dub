@@ -26,7 +26,7 @@ $(document).ready(function(){
   
 	$("#jplayer_inspector_1").jPlayerInspector({jPlayer:$("#jquery_jplayer_1")});
   
-  var updateAll = function(song) {
+  updateAll = function(song) {
     var currentTitle = song.title || 'Untitled';
     //var currentArtist = song.artist || 'Anonymous';
     var currentArt = song.artwork_url || '/no-art.png';
@@ -34,7 +34,8 @@ $(document).ready(function(){
     //$('#current-artist').html(currentArtist);
     $('#current-art')[0].src = currentArt;
     //$('title').html(songtitle + ' - ' + songartist);
-  }
+  };
+  
 });
 </script>
 
@@ -70,8 +71,7 @@ $(document).ready(function(){
 					</div>
 					<div class="jp-current-time"></div>
 					<div class="jp-duration"></div>
-					<ul class="jp-toggles">
-					</ul>
+					<ul class="jp-toggles"></ul>
 				</div>
 				<div class="jp-playlist">
 					<ul>
@@ -89,16 +89,50 @@ $(document).ready(function(){
   </div>
 </div>
 
+<div class="sidebar">
   <% if signed_in? %>
-  <div class="sidebar">
-    <%= link_to "Sign in", signin_path %><br>
-    <%= link_to "Sign up", signup_path %><br> 
-    test 
-  </div>
+  Welcome back, <%= current_user.name %>
+    <%= link_to "Sign out", signout_path, method: "delete", class: "signout" %><br>
+    
+    <div id="user-playlists">
+        <div class="given-playlists">
+          <ul>
+            <% (0..2).each do |num| %>
+              <% if num == current_user.current_playlist_id %>
+              <li id="current-playlist"><%= current_user.playlists[num].title %></li>
+              <% else %>
+                <li id="given"><%= current_user.playlists[num].title %></li>
+              <% end %>
+            <% end %>
+          </ul>
+        </div>
+        
+        <br>
+        <h3>Make a new Playlist</h3><br>
+        <% @playlist = Playlist.new %>
+        <%= form_for @playlist, :remote => true, :url => { :controller => "playlists", :action => "create" } do |f| %>
+          <%= f.text_field 'title', class: 'submittable' %>
+        <% end %>
+        
+        
+        <div class="more-playlist">
+          <ul>
+            <% current_user.playlists[3..current_user.playlists.length].each do |playlist| %>
+              <% if playlist.id == current_user.current_playlist_id %>
+                <li id="current-playlist"><%= playlist.title %></li>
+              <% else %>
+                <li id="regular-playlist"><%= playlist.title %></li>
+              <% end %>
+            <% end %>
+          </ul>
+        </div>
+        
+    </div>
+    
   <% else %>
-  <div class="sidebar">
-    <%= link_to "Sign out", signout_path, method: "delete" %><br>
-  </div>
+    <%= link_to "Sign in", signin_path, class: "signin" %>
+    <%= link_to "Sign up", signup_path, class: "signup" %><br> 
   <% end %>
+</div>
 
 <div class="clear"></div>
