@@ -37,6 +37,12 @@ div.given-playlists ul {
   
 }
 
+img#current-art {
+  -moz-border-radius: 15px;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+}
+
 ul.song-list {
   clear:both;
   height: auto;
