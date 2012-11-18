@@ -28,12 +28,11 @@ $(document).ready(function(){
   
   var updateAll = function(song) {
     var currentTitle = song.title || 'Untitled';
-    //var songartist = song.artist || 'Anonymous';
+    //var currentArtist = song.artist || 'Anonymous';
+    var currentArt = song.artwork_url || '/no-art.png';
     $('#current-title').html(currentTitle);
-    //$('#song-artist').html(songartist);
-    $('#reporttitle').val(currentTitle);
-    //$('#reportartist').val(songartist);
-    $('#reportsong').stop().fadeOut('fast');
+    //$('#current-artist').html(currentArtist);
+    $('#current-art')[0].src = currentArt;
     //$('title').html(songtitle + ' - ' + songartist);
   }
 });
@@ -45,6 +44,7 @@ $(document).ready(function(){
 			<div class="jp-type-playlist">
         <div class="jp-gui jp-interface2">
           <div class="text-interface2">
+            <img id="current-art" src=""></img>
             <div id="current-title"></div>
             <div id="current-artist"></div>
           </div>
@@ -89,13 +89,16 @@ $(document).ready(function(){
   </div>
 </div>
 
-<div class="sidebar">
   <% if signed_in? %>
+  <div class="sidebar">
     <%= link_to "Sign in", signin_path %><br>
-    <%= link_to "Sign up", signup_path %><br>  
+    <%= link_to "Sign up", signup_path %><br> 
+    test 
+  </div>
   <% else %>
+  <div class="sidebar">
     <%= link_to "Sign out", signout_path, method: "delete" %><br>
+  </div>
   <% end %>
-</div>
 
 <div class="clear"></div>
