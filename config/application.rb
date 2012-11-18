@@ -58,7 +58,11 @@ module App
 
     # Enable the asset pipeline
     config.assets.enabled = true
-
+    
+    # Add some assets
+    config.assets.precompile << '*.js'
+    config.assets.precompile << '*.css.erb'
+    
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
   end
