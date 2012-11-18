@@ -9,7 +9,6 @@ application.js: application-bc75f173aea459c7d87042d466fb37af.js
 jplayer.inspector.min.js: jplayer.inspector.min-689d9bf902b01f65f926cd965ef11939.js
 jplayer.playlist.min.js: jplayer.playlist.min-071cef0e423458251362cff187230994.js
 jquery.jplayer.min.js: jquery.jplayer.min-22efe7d797c27c70b22da56f2e7d2df1.js
-main.js: main-71c9eaf3c06bffedf041f8d52c511254.js
 scrapers.js: scrapers-e67319358771a3f0c0b37bcb8e301c39.js
 sessions.js: sessions-e67319358771a3f0c0b37bcb8e301c39.js
 static_pages.js: static_pages-e67319358771a3f0c0b37bcb8e301c39.js
