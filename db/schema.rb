@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121117193530) do
+ActiveRecord::Schema.define(:version => 20121117195656) do
 
   create_table "microposts", :force => true do |t|
     t.string   "content"
@@ -34,9 +34,30 @@ ActiveRecord::Schema.define(:version => 20121117193530) do
   add_index "relationships", ["follower_id"], :name => "index_relationships_on_follower_id"
 
   create_table "scrapers", :force => true do |t|
-    t.string   "client_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "songs", :force => true do |t|
+    t.string   "title"
+    t.string   "artwork_url"
+    t.string   "upload_date"
+    t.boolean  "downloadable"
+    t.integer  "duration"
+    t.string   "genre"
+    t.integer  "upload_id"
+    t.string   "url"
+    t.string   "server_plays"
+    t.string   "purchase_url"
+    t.boolean  "streamable"
+    t.text     "tag_list"
+    t.string   "track_type"
+    t.string   "uri"
+    t.integer  "user_upload_id"
+    t.string   "service"
+    t.string   "stream_url"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   create_table "users", :force => true do |t|

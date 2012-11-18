@@ -1,31 +1,57 @@
+<%= stylesheet_link_tag "jplayer.blue.monday" %>
+<%= stylesheet_link_tag "main" %>
+<%= javascript_include_tag "jquery.jplayer.min" %>
+<%= javascript_include_tag "main" %>
+
 <% if signed_in? %>
-  <div class="row">
-    <aside class="span4">
-      <section>
-        <%= render 'shared/user_info' %>
-      </section>
-      <section>
-        <%= render 'shared/stats' %>
-      </section>
-      <section>
-        <%= render 'shared/micropost_form' %>
-      </section>
-    </aside>
-    <div class="span8">
-      <h3>Micropost Feed</h3>
-      <%= render 'shared/feed' %>
+
+  <%= link_to "Sign out", signout_path, method: "delete" %>
+  <div class="player">
+    <div class="jp-audio">
+      <div class="jp-type-single">
+        <div id="jquery_jplayer_1" class="jp-jplayer"></div>
+        <div id="jp_interface_1" class="jp-interface">
+          <ul class="jp-controls">
+            <li><a href="#" class="jp-play" tabindex="1">play</a></li>
+            <li><a href="#" class="jp-pause" tabindex="1">pause</a></li>
+            <li><a href="#" class="jp-stop" tabindex="1">stop</a></li>
+            <li><a href="#" class="jp-mute" tabindex="1">mute</a></li>
+            <li><a href="#" class="jp-unmute" tabindex="1">unmute</a></li>
+          </ul>
+          <div class="jp-progress">
+            <div class="jp-seek-bar">
+              <div class="jp-play-bar"></div>
+            </div>
+          </div>
+          <div class="jp-volume-bar">
+            <div class="jp-volume-bar-value"></div>
+          </div>
+          <div class="jp-current-time"></div>
+          <div class="jp-duration"></div>
+        </div>
+        <div id="jp_playlist_1" class="jp-playlist">
+          <ul>
+                  
+            <li></li>
+                
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
+  
+  <div class="clear"></div>
 <% else %>
   <div class="center hero-unit">
-    <h1>Base App</h1>
+    <h1>Sound of Dub</h1>
 
     <h2>
-      This is a base app.
+      Wub Wub Wub
     </h2>
 
-    <%= link_to "Sign up now!", signup_path, 
-                                class: "btn btn-large btn-primary" %>
+    <%= link_to "Sign up!", signup_path, class: "btn btn-large btn-primary" %>
+    <%= link_to "Sign in!", signin_path, class: "btn btn-large btn-primary" %>
+    
   </div>
 
 <% end %>
